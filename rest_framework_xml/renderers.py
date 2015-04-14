@@ -30,20 +30,20 @@ class XMLRenderer(BaseRenderer):
 
         xml = SimplerXMLGenerator(stream, self.charset)
         xml.startDocument()
-        xml.startElement("root", {})
+        xml.startElement("objects", {})
 
         self._to_xml(xml, data)
 
-        xml.endElement("root")
+        xml.endElement("objects")
         xml.endDocument()
         return stream.getvalue()
 
     def _to_xml(self, xml, data):
         if isinstance(data, (list, tuple)):
             for item in data:
-                xml.startElement("list-item", {})
+                xml.startElement("object", {})
                 self._to_xml(xml, item)
-                xml.endElement("list-item")
+                xml.endElement("object")
 
         elif isinstance(data, dict):
             for key, value in six.iteritems(data):
